@@ -38,6 +38,43 @@ public class RomanConverterServiceImplTest {
     }
 
     /**
+     * Test of convertDateYears method, of class RomanConverterServiceImpl.
+     */
+    @Test
+    public void testConvertDateYearsFormatAOK() {
+        System.out.println("convertDateYears");
+        String date = "14/09/1980";
+        RomanConverterServiceImpl instance = new RomanConverterServiceImpl();
+        String expResult = "XIV/IX/MCMLXXX";
+        String result = instance.convertDateYears(date);
+        assertEquals(expResult, result);
+    }
+    
+    /**
+     * Test of convertDateYears method, of class RomanConverterServiceImpl.
+     */
+    @Test
+    public void testConvertDateYearsFormatBOK() {
+        System.out.println("convertDateYears");
+        String date = "14-09-1980";
+        RomanConverterServiceImpl instance = new RomanConverterServiceImpl();
+        String expResult = "XIV/IX/MCMLXXX";
+        String result = instance.convertDateYears(date);
+        assertEquals(expResult, result);
+    }
+    
+    /**
+     * Test of convertDateYears method, of class RomanConverterServiceImpl.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testConvertDateYearsInvalidDateFormat() {
+        System.out.println("convertDateYears");
+        String date = "1904*209*1980";
+        RomanConverterServiceImpl instance = new RomanConverterServiceImpl();
+        instance.convertDateYears(date);
+    }
+    
+    /**
      * Test of convertArabeToRoman method, of class RomanConverterServiceImpl.
      */
     @Test

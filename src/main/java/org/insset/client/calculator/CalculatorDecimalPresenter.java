@@ -144,10 +144,14 @@ public class CalculatorDecimalPresenter extends Composite {
      * call server
      */
     private void convertArabeToRoman() {
-        if (!FieldVerifier.isValidRoman(valA.getText())) {
-            errorLabelAToR.addStyleName("serverResponseLabelError");
-            errorLabelAToR.setText("Format incorect");
-            return;
+        Integer value = null;
+        try {
+            value = Integer.parseInt(valA.getText());
+        } catch (NumberFormatException e) {
+            this.convertArabeToRomanSetErrorText();
+        }
+        if (!FieldVerifier.isValidDecimal(value)) {
+            this.convertArabeToRomanSetErrorText();
         }
         service.convertArabeToRoman(Integer.parseInt(valA.getText()), new AsyncCallback<String>() {
             public void onFailure(Throwable caught) {
@@ -156,9 +160,19 @@ public class CalculatorDecimalPresenter extends Composite {
             }
 
             public void onSuccess(String result) {
+                errorLabelAToR.setText("");
                 new DialogBoxInssetPresenter("Convertion Arabe to Roman", valA.getText(), result);
             }
         });
+    }
+
+    /**
+     * Set the text of the error label for the date field
+     */
+    private void convertArabeToRomanSetErrorText() {
+        errorLabelAToR.addStyleName("serverResponseLabelError");
+        errorLabelAToR.setText("Format incorect (entier >0 et <= 2000)");
+        return;
     }
 
     /**
@@ -167,8 +181,8 @@ public class CalculatorDecimalPresenter extends Composite {
     private void convertDate() {
         //Verif
         if (!FieldVerifier.isValidDate(valD.getText())) {
-            errorLabelAToR.addStyleName("serverResponseLabelError");
-            errorLabelAToR.setText("Format incorect");
+            errorLabelD.addStyleName("serverResponseLabelError");
+            errorLabelD.setText("Format incorect (dd/MM/yyyy ou dd-MM-yyyy)");
             return;
         }
         //call server

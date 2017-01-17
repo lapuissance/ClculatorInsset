@@ -6,6 +6,10 @@
 package org.insset.server;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import org.insset.client.service.RomanConverterService;
@@ -20,8 +24,27 @@ public class RomanConverterServiceImpl extends RemoteServiceServlet implements
 
     @Override
     public String convertDateYears(String nbr) throws IllegalArgumentException {
-        //Implement your code
-        return "XV/III/MX";
+        DateFormat sourceFormat = null;
+
+        if (nbr.contains("-")) {
+            sourceFormat = new SimpleDateFormat("dd-MM-yyyy");
+        } else {
+            sourceFormat = new SimpleDateFormat("dd/MM/yyyy");
+        }
+
+        Date d = null;
+        try {
+            d = sourceFormat.parse(nbr);
+        } catch (java.text.ParseException e) {
+            throw new IllegalArgumentException("The date format is dd/MM/yyyy or dd-MM-yyyy");
+        }
+
+        StringBuilder resultBuilder = new StringBuilder();
+        resultBuilder.append(this.convertArabeToRoman(d.getDate()) + "/");
+        resultBuilder.append(this.convertArabeToRoman(1 + d.getMonth()) + "/");
+        resultBuilder.append(this.convertArabeToRoman(1900 + d.getYear()));
+
+        return resultBuilder.toString();
     }
 
     @Override
@@ -35,7 +58,7 @@ public class RomanConverterServiceImpl extends RemoteServiceServlet implements
         if (nbr < 1 || nbr > 2000) {
             throw new IllegalArgumentException("You need to give an integer between 1 and 2000");
         }
-        
+
         String[] rnChars = {"M", "CM", "D", "C", "XC", "L", "X", "IX", "V", "I"};
         int[] rnVals = {1000, 900, 500, 100, 90, 50, 10, 9, 5, 1};
         String retVal = "";
