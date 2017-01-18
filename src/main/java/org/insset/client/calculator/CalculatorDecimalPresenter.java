@@ -194,6 +194,7 @@ public class CalculatorDecimalPresenter extends Composite {
             }
 
             public void onSuccess(String result) {
+                errorLabelD.setText("");
                 new DialogBoxInssetPresenter("Convertion Date", valD.getText(), result);
             }
         });
