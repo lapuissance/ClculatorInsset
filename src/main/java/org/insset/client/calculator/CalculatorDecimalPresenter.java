@@ -125,7 +125,7 @@ public class CalculatorDecimalPresenter extends Composite {
     private void convertRomanToArabe() {
         if (!FieldVerifier.isValidRoman(valR.getText())) {
             errorLabelRToA.addStyleName("serverResponseLabelError");
-            errorLabelRToA.setText("Format incorect");
+            errorLabelRToA.setText("Format incorect : Doit être comprit entre I et MM");
             return;
         }
         service.convertRomanToArabe(valR.getText(), new AsyncCallback<Integer>() {
@@ -135,6 +135,7 @@ public class CalculatorDecimalPresenter extends Composite {
             }
 
             public void onSuccess(Integer result) {
+                errorLabelRToA.setText(" ");
                 new DialogBoxInssetPresenter("Convertion Roman to arabe", valR.getText(), String.valueOf(result));
             }
         });
