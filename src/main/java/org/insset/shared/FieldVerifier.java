@@ -1,5 +1,7 @@
 package org.insset.shared;
 
+import java.util.Calendar;
+
 /**
  * <p>
  * FieldVerifier validates that the name the user enters is valid.
@@ -40,20 +42,8 @@ public class FieldVerifier {
         return true;
     }
 
-    /**
-     * Verifies that the specified value is valide.
-     *
-     * In this example, we only require that the name is at least four
-     * characters. In your application, you can use more complex checks to
-     * ensure that usernames, passwords, email addresses, URLs, and other fields
-     * have the proper syntax.
-     *
-     * @param name the name to validate
-     * @return true if valid, false if invalid
-     */
     public static boolean isValidDecimal(Integer nbr) {
-        //Implement your code
-        return true;
+        return nbr > 0 && nbr <= 2000;
     }
 
     public static boolean isValidRoman(String nbr) {
@@ -62,7 +52,6 @@ public class FieldVerifier {
     }
 
     public static boolean isValidDate(String date) {
-        //Implement your code
-        return true;
+        return date.matches("^(0[1-9]|[12][0-9]|3[01])[-/](0[1-9]|1[012])[-/](19|20)\\d\\d$");
     }
 }
