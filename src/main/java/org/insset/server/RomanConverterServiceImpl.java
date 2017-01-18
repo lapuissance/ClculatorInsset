@@ -143,22 +143,4 @@ public class RomanConverterServiceImpl extends RemoteServiceServlet implements
         }
         return retVal;
     }
-
-    /**
-     * @return Map<Integer, String>
-     */
-    private static Map getMapping() {
-        Map<Integer, String> mapping;
-        mapping = new HashMap<>();
-        mapping.put(1000, "M");
-        mapping.put(500, "D");
-        mapping.put(100, "C");
-        mapping.put(50, "L");
-        mapping.put(10, "X");
-        mapping.put(5, "V");
-        mapping.put(1, "I");
-
-        return mapping;
-    }
-
 }
