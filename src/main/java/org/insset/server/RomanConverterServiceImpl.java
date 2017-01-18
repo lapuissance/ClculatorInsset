@@ -46,12 +46,81 @@ public class RomanConverterServiceImpl extends RemoteServiceServlet implements
 
         return resultBuilder.toString();
     }
-
-    @Override
-    public Integer convertRomanToArabe(String nbr) throws IllegalArgumentException {
-        //Implement your code
-        return 3;
+    
+    /**
+     * 
+     * @param str
+     * @return
+     * @throws IllegalArgumentException 
+     * return decimal number for a single roman number given
+     */
+    public Integer value(char str) throws IllegalArgumentException {
+        switch (str)
+        {
+          case 'I':
+            return 1;        
+          case 'V':
+            return 5;
+          case 'X':
+            return 10;
+          case 'L':
+            return 50;
+          case 'C':
+            return 100;
+          case 'D':
+            return 500;
+          case 'M':
+            return 1000;
+        }
+        return 0;
     }
+
+    /**
+     *
+     * @param str
+     * @return
+     * @throws IllegalArgumentException 
+     * Return an decimal number for a given roman number
+     */
+    @Override
+    public Integer convertRomanToArabe(String str) throws IllegalArgumentException {
+       
+        int res = 0;
+ 
+        for (int i=0; i<str.length(); i++)
+        {
+            // Getting value of symbol s[i]
+            int s1 = value(str.charAt(i));
+ 
+            // Getting value of symbol s[i+1]
+            if (i+1 <str.length())
+            {
+                int s2 = value(str.charAt(i+1));
+ 
+                // Comparing both values
+                if (s1 >= s2)
+                {
+                    // Value of current symbol is greater
+                    // or equalto the next symbol
+                    res = res + s1;
+                }
+                else
+                {
+                    res = res + s2 - s1;
+                    i++; // Value of current symbol is
+                    // less than the next symbol
+                }
+            }
+            else
+            {
+                res = res + s1;
+                i++;
+            }
+        }
+ 
+        return res;
+    }
+    
 
     @Override
     public String convertArabeToRoman(Integer nbr) throws IllegalArgumentException {

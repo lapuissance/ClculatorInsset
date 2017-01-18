@@ -75,6 +75,43 @@ public class RomanConverterServiceImplTest {
     }
     
     /**
+     * Add function convert Roman to Arab
+     * Test of convertSingleRoman method, of class RomanConverterServiceImpl.
+     */
+    @Test
+    public void testValue() {
+        System.out.println("value");
+        char str = 'I';
+        RomanConverterServiceImpl instance = new RomanConverterServiceImpl();
+        Integer expResult = 1;
+        Integer result = instance.value(str);
+        assertEquals(expResult, result);
+    }
+    
+    @Test
+    public void testValueKO() {
+        System.out.println("valueKO");
+        char str = 'z';
+        RomanConverterServiceImpl instance = new RomanConverterServiceImpl();
+        Integer expResult = 0;
+        Integer result = instance.value(str);
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of convertRomanToArabe method, of class RomanConverterServiceImpl.
+     */
+    @Test
+    public void testConvertRomanToArabe() {
+        System.out.println("convertRomanToArabe");
+        String nbr = "XVI";
+        RomanConverterServiceImpl instance = new RomanConverterServiceImpl();
+        Integer expResult = 16;
+        Integer result = instance.convertRomanToArabe(nbr);
+        assertEquals(expResult, result);
+    }
+    
+    /**
      * Test of convertArabeToRoman method, of class RomanConverterServiceImpl.
      */
     @Test
@@ -100,6 +137,6 @@ public class RomanConverterServiceImplTest {
         System.out.println("convertArabeToRomanInvalidInput");
         Integer nbr = 2001;
         RomanConverterServiceImpl instance = new RomanConverterServiceImpl();
-        String result = instance.convertArabeToRoman(nbr);
+        instance.convertArabeToRoman(nbr);
     }
 }
